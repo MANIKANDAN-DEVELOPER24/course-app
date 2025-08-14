@@ -1,19 +1,7 @@
-
-// import axios from 'axios';
-
-// const api = axios.create({
-//   baseURL: 'http://127.0.0.1:8000/api/',
-//   withCredentials: true, // ✅ send cookies
-//   xsrfCookieName: 'csrftoken', // ✅ Django default
-//   xsrfHeaderName: 'X-CSRFToken',
-// });
-
-// export default api;
-
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/",
+  baseURL: "https://course-back-ofpi.onrender.com/api/",
 });
 
 // ✅ Attach token only for private requests
@@ -48,7 +36,7 @@ api.interceptors.response.use(
       try {
         const refreshToken = localStorage.getItem("refresh");
         const res = await axios.post(
-          "http://127.0.0.1:8000/api/token/refresh/",
+          "https://course-back-ofpi.onrender.com/api/token/refresh/",
           { refresh: refreshToken }
         );
 
