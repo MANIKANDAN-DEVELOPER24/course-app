@@ -45,9 +45,9 @@ export default function Header({ user, setUser, cartCount }) {
               <Button color="inherit" component={Link} to="/login">
                 Login
               </Button>
-              <Button color="inherit" component={Link} to="/register">
+              {/* <Button color="inherit" component={Link} to="/register">
                 Register
-              </Button>
+              </Button> */}
             </>
           )}
 
