@@ -4,7 +4,8 @@ import {
   Paper, Button, Dialog, DialogActions, DialogContent, DialogTitle,
   TextField, Typography
 } from "@mui/material";
-import api from "../utils/api"; // ✅ use your custom axios instance
+import api from "../../api/axiosConfig";  
+ // ✅ use your custom axios instance
 
 const AdminCourses = () => {
   const [courses, setCourses] = useState([]);
