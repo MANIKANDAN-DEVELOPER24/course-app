@@ -123,7 +123,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home user={user} cart={cart} setCart={setCart} />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
-          <Route path="/register" element={<Register />} />
+          {/* <Route path="/register" element={<Register />} /> */}
           <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
           <Route
             path="/checkout"
