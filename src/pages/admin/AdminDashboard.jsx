@@ -43,7 +43,7 @@ export default function AdminDashboard() {
       </Tabs>
       <Box>
         {tab === 0 && <AdminUsers />}
-        {/* {tab === 1 && <AdminCourses />} */}
+        {tab === 1 && <AdminCourses />}
         {tab === 2 && <AdminOffers />}
       </Box>
     </Paper>
