@@ -200,7 +200,8 @@ import {
   Paper, Button, Dialog, DialogActions, DialogContent, DialogTitle,
   TextField, Typography
 } from "@mui/material";
-import api from "../utils/api";
+import api from '../../api/axiosConfig'
+
 
 const AdminCourses = () => {
   const [courses, setCourses] = useState([]);
