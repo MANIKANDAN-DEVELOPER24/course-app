@@ -124,9 +124,14 @@
 //   );
 // }
 
-
 import React, { useState } from "react";
-import { Typography, Button, Box, CircularProgress, Divider } from "@mui/material";
+import {
+  Typography,
+  Button,
+  Box,
+  CircularProgress,
+  Divider,
+} from "@mui/material";
 import api from "../api/axiosConfig";
 import { useNavigate } from "react-router-dom";
 
@@ -139,14 +144,14 @@ export default function Checkout({ cart, setCart, user }) {
   // Step 1: Preview Checkout
   const handlePreview = async () => {
     if (!user) {
-      setMessage("Please login before checkout.");
-      setTimeout(() => nav("/login"), 1000);
+      setMessage("⚠️ Please login before checkout.");
+      setTimeout(() => nav("/login"), 1200);
       return;
     }
 
     const course_ids = cart.map((c) => c.id);
     if (course_ids.length === 0) {
-      setMessage("No courses selected for checkout.");
+      setMessage("⚠️ No courses selected for checkout.");
       return;
     }
 
@@ -157,7 +162,7 @@ export default function Checkout({ cart, setCart, user }) {
       setMessage(null);
     } catch (err) {
       console.error(err.response?.data || err);
-      setMessage(err.response?.data?.error || "❌ Checkout preview failed");
+      setMessage(err.response?.data?.error || "❌ Checkout preview failed.");
     } finally {
       setLoading(false);
     }
@@ -165,16 +170,22 @@ export default function Checkout({ cart, setCart, user }) {
 
   // Step 2: Confirm Purchase
   const handleConfirm = async () => {
+    if (!user) {
+      setMessage("⚠️ Please login before confirming purchase.");
+      setTimeout(() => nav("/login"), 1200);
+      return;
+    }
+
     setLoading(true);
     try {
       await api.post("checkout/confirm/", { course_ids: cart.map((c) => c.id) });
       setMessage("✅ Purchase successful!");
       setCart([]);
       setSummary(null);
-      setTimeout(() => nav("/"), 1200);
+      setTimeout(() => nav("/"), 1500);
     } catch (err) {
       console.error(err.response?.data || err);
-      setMessage(err.response?.data?.error || "❌ Checkout failed");
+      setMessage(err.response?.data?.error || "❌ Checkout failed.");
     } finally {
       setLoading(false);
     }
@@ -187,7 +198,10 @@ export default function Checkout({ cart, setCart, user }) {
       </Typography>
 
       {message && (
-        <Typography sx={{ mb: 2 }} color={message.startsWith("✅") ? "green" : "error"}>
+        <Typography
+          sx={{ mb: 2 }}
+          color={message.startsWith("✅") ? "green" : "error"}
+        >
           {message}
         </Typography>
       )}
@@ -202,15 +216,18 @@ export default function Checkout({ cart, setCart, user }) {
           <Typography variant="h6" gutterBottom>
             Order Summary
           </Typography>
+
           {summary.courses.map((c) => (
             <Typography key={c.id}>
               {c.name} — ₹{c.price}
             </Typography>
           ))}
+
           <Divider sx={{ my: 1 }} />
           <Typography>Total: ₹{summary.total_price}</Typography>
           <Typography>Discount: -₹{summary.discount}</Typography>
           <Typography>GST: +₹{summary.gst}</Typography>
+
           <Typography variant="h6" sx={{ mt: 1 }}>
             Final Amount: ₹{summary.final_amount}
           </Typography>
