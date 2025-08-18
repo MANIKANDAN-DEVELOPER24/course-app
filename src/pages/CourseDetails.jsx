@@ -28,14 +28,48 @@ export default function CourseDetails({ cart, setCart }) {
     return () => (mounted = false)
   }, [id])
 
-  const addToCart = (course) => {
-    if (cart.find((c) => c.id === course.id)) {
-      setSnackbar({ open: true, message: 'Course already in cart', severity: 'warning' })
-      return
-    }
-    setCart([...cart, course])
-    setSnackbar({ open: true, message: 'Course added to cart', severity: 'success' })
+
+
+
+  // const addToCart = (course) => {
+  //   if (cart.find((c) => c.id === course.id)) {
+  //     setSnackbar({ open: true, message: 'Course already in cart', severity: 'warning' })
+  //     return
+  //   }
+  //   setCart([...cart, course])
+  //   setSnackbar({ open: true, message: 'Course added to cart', severity: 'success' })
+  // }
+const addToCart = (course) => {
+  const token = localStorage.getItem("access"); // check JWT
+
+  if (!token) {
+    setSnackbar({ open: true, message: 'Please login to add courses to cart', severity: 'error' })
+    nav('/login');
+    return;
   }
+
+  if (cart.find((c) => c.id === course.id)) {
+    setSnackbar({ open: true, message: 'Course already in cart', severity: 'warning' })
+    return;
+  }
+
+  setCart([...cart, course])
+  setSnackbar({ open: true, message: 'Course added to cart', severity: 'success' })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const handleCloseSnackbar = () => setSnackbar({ ...snackbar, open: false })
 
