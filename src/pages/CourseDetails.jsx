@@ -29,16 +29,6 @@ export default function CourseDetails({ cart, setCart }) {
   }, [id])
 
 
-
-
-  // const addToCart = (course) => {
-  //   if (cart.find((c) => c.id === course.id)) {
-  //     setSnackbar({ open: true, message: 'Course already in cart', severity: 'warning' })
-  //     return
-  //   }
-  //   setCart([...cart, course])
-  //   setSnackbar({ open: true, message: 'Course added to cart', severity: 'success' })
-  // }
 const addToCart = (course) => {
   const token = localStorage.getItem("access"); // check JWT
 
